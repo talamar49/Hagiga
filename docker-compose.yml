@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6
+    ports:
+      # changed host port to 27018 to avoid conflicts if 27017 is already in use
+      - 27018:27017
+    volumes:
+      - mongo-data:/data/db
+  backend:
+    build: ./backend
+    ports:
+      - 4000:4000
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/wedproject
+    depends_on:
+      - mongo
+volumes:
+  mongo-data:

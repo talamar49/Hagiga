@@ -1,0 +1,14 @@
+nohup: ignoring input
+
+> hagiga-frontend@0.1.0 dev
+> next dev
+
+   ▲ Next.js 14.0.0
+   - Local:        http://localhost:3000
+
+ ✓ Ready in 9.7s
+ ○ Compiling / ...
+ ✓ Compiled / in 1182ms (200 modules)
+ ✓ Compiled /_error in 206ms (202 modules)
+ ✓ Compiled /api/proxy/[...path] in 119ms (63 modules)
+ ✓ Compiled /events/[id]/import in 408ms (289 modules)
