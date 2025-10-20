@@ -24,8 +24,8 @@ export default function LoginPage() {
           <form style={{ maxWidth: 520, margin: '0 auto' }} onSubmit={e => e.preventDefault()}>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 12 }}>
               <div style={{ display: 'inline-flex', gap: 8 }} role="tablist" aria-label="login modes">
-                <button type="button" className="btn" onClick={() => setMode('creds')} aria-pressed={mode === 'creds'} style={mode === 'creds' ? { fontWeight: 600 } : {}}>{lang === 'he' ? '\u05e9\u05dd \u05d5\u05e1\u05d9\u05dd' : 'Name & Password'}</button>
-                <button type="button" className="btn" onClick={() => setMode('phone')} aria-pressed={mode === 'phone'} style={mode === 'phone' ? { fontWeight: 600 } : {}}>{lang === 'he' ? '\u05de\u05e1\u05e4\u05ea \u05e2\u05dc \u05e4\u05e0\u05d9' : 'Phone'}</button>
+                <button type="button" className="btn" onClick={() => setMode('creds')} aria-pressed={mode === 'creds'} style={mode === 'creds' ? { fontWeight: 600 } : {}}>{t('namePassword', lang)}</button>
+                <button type="button" className="btn" onClick={() => setMode('phone')} aria-pressed={mode === 'phone'} style={mode === 'phone' ? { fontWeight: 600 } : {}}>{t('phoneLabel', lang)}</button>
               </div>
             </div>
             {mode === 'creds' ? (
@@ -41,7 +41,7 @@ export default function LoginPage() {
               </>
             ) : (
               <div style={{ marginBottom: 12, textAlign: lang === 'he' ? 'right' : 'left' }}>
-                <label htmlFor="phone">{lang === 'he' ? '\u05de\u05e1\u05e4\u05ea' : 'Phone number'}</label>
+                <label htmlFor="phone">{t('phoneLabel', lang)}</label>
                 <input id="phone" dir="ltr" type="tel" placeholder={lang === 'he' ? '\u05e0\u05de\u05e8' : '+972 50 000 0000'} style={{ width: '100%', padding: 10 }} />
               </div>
             )}

@@ -34,8 +34,8 @@ const translations: Record<Lang, Record<string, string>> = {
   lastName: '\u05e9\u05dd \u05de\u05e9\u05e4\u05d7\u05d4',
     password: '\u05e1\u05d9\u05e1\u05de\u05d4',
     signIn: '\u05d4\u05ea\u05d7\u05d1\u05e8\u05d5\u05ea',
-    phoneLabel: '\u05de\u05e1\u05e4\u05ea',
-    namePassword: '\u05e9\u05dd \u05d5\u05e1\u05d9\u05dd',
+  phoneLabel: '\u05e4\u05dc\u05d0\u05e4\u05d5\u05df',
+  namePassword: '\u05e9\u05dd \u05d5\u05e1\u05d9\u05de\u05d0',
     noAccount: '\u05d0\u05d9\u05e0\u05d5 \u05dc\u05da \u05d7\u05e9\u05d1\u05d5\u05df?',
     register: '\u05d4\u05e8\u05e9\u05de\u05d4',
   }
