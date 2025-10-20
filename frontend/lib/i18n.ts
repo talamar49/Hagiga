@@ -14,6 +14,7 @@ const translations: Record<Lang, Record<string, string>> = {
     firstName: 'First name',
     lastName: 'Last name',
     password: 'Password',
+  passwordPlaceholder: '••••••••',
     signIn: 'Sign in',
     phoneLabel: 'Phone number',
     namePassword: 'Name & Password',
@@ -33,10 +34,11 @@ const translations: Record<Lang, Record<string, string>> = {
     firstName: 'שם',
     lastName: 'שם משפחה',
     password: 'סיסמה',
+  passwordPlaceholder: '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022',
     signIn: 'התחברות',
     phoneLabel: 'פלאפון',
     namePassword: 'שם וסיסמא',
-    noAccount: 'אינו לך חשבון?',
+    noAccount: 'אין לך חשבון?',
     register: 'הרשמה',
   }
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLang } from '../lib/lang';
+import { NAV_LABELS } from '../constants/nav';
+import { Routes } from '../constants/routes';
 import { useRouter } from 'next/router';
 
 export default function Nav() {
@@ -21,14 +23,14 @@ export default function Nav() {
           <>
             <div>
               {isHome ? (
-                <Link href="/login" style={{ marginInlineStart: 12 }}>{isHeb ? 'התחברות / הרשמה' : 'Sign in / Register'}</Link>
+                <Link href={Routes.LOGIN} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.signInRegister.he : NAV_LABELS.signInRegister.en}</Link>
               ) : (
                 <>
-                  <Link href="/home_screen" style={{ marginInlineStart: 12 }}>{isHeb ? 'דף הבית' : 'Home'}</Link>
+                  <Link href={Routes.HOME_SCREEN} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.home.he : NAV_LABELS.home.en}</Link>
                   {showRegister ? (
-                    <Link href="/register" style={{ marginInlineStart: 12 }}>{isHeb ? 'הרשמה' : 'Register'}</Link>
+                    <Link href={Routes.REGISTER} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.register.he : NAV_LABELS.register.en}</Link>
                   ) : (
-                    <Link href="/login" style={{ marginInlineStart: 12 }}>{isHeb ? 'התחברות' : 'Login'}</Link>
+                    <Link href={Routes.LOGIN} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.login.he : NAV_LABELS.login.en}</Link>
                   )}
                 </>
               )}
@@ -50,14 +52,14 @@ export default function Nav() {
             </div>
             <div>
               {isHome ? (
-                <Link href="/login" style={{ marginInlineStart: 12 }}>{isHeb ? 'התחברות / הרשמה' : 'Sign in / Register'}</Link>
+                <Link href={Routes.LOGIN} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.signInRegister.he : NAV_LABELS.signInRegister.en}</Link>
               ) : (
                 <>
-                  <Link href="/home_screen" style={{ marginInlineStart: 12 }}>{isHeb ? 'דף הבית' : 'Home'}</Link>
+                  <Link href={Routes.HOME_SCREEN} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.home.he : NAV_LABELS.home.en}</Link>
                   {showRegister ? (
-                    <Link href="/register" style={{ marginInlineStart: 12 }}>{isHeb ? 'הרשמה' : 'Register'}</Link>
+                    <Link href={Routes.REGISTER} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.register.he : NAV_LABELS.register.en}</Link>
                   ) : (
-                    <Link href="/login" style={{ marginInlineStart: 12 }}>{isHeb ? 'התחברות' : 'Login'}</Link>
+                    <Link href={Routes.LOGIN} style={{ marginInlineStart: 12 }}>{isHeb ? NAV_LABELS.login.he : NAV_LABELS.login.en}</Link>
                   )}
                 </>
               )}
