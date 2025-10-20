@@ -1,0 +1,17 @@
+{
+  "name": "hagiga",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev:frontend": "npm --prefix ./frontend run dev",
+    "dev:backend": "npm --prefix ./backend run dev",
+    "dev:docker": "docker-compose up --build",
+    "dev": "concurrently -k -s first \"npm run dev:frontend\" \"npm run dev:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "hagiga": "file:"
+  }
+}

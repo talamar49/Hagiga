@@ -2,6 +2,7 @@ version: '3.8'
 services:
   mongo:
     image: mongo:6
+    container_name: mongo
     ports:
       # changed host port to 27018 to avoid conflicts if 27017 is already in use
       - 27018:27017
