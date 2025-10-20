@@ -1,17 +1,28 @@
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
+const phoneRegex = /^0\d{9}$/;
 
-// Guest documents store event-scoped guest records created from CSV imports.
-// We allow flexible fields (non-strict) so CSV columns become top-level fields.
 const GuestSchema = new Schema(
   {
-    eventId: { type: Schema.Types.ObjectId, ref: 'Event', required: true },
-    // uploadedBy is optional when auth is disabled in dev
-    uploadedBy: { type: Schema.Types.ObjectId, ref: 'User' },
+    name: { type: String, required: true },
+    lastName: { type: String },
+    participantsCount: { type: Number, default: 1 },
+    phoneNumber: {
+    type: String,
+    required: true,
+    unique: true, 
+    validate: {
+      validator: (v: string) => phoneRegex.test(v),
+      message: (props: { value: string }) => 
+        `${props.value} is not a valid 10-digit phone number starting with 0!`,
+      },
+    },
+    eventId: { type: Schema.Types.ObjectId , ref: 'Event', required: true },
+    uploadedBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
-  { timestamps: true, strict: false }
-);
+  { timestamps: true, strict: false },
+  );
 
 const Guest = mongoose.models.Guest || mongoose.model('Guest', GuestSchema);
 

@@ -9,7 +9,7 @@ import Supplier from './Supplier';
 import Review from './Review';
 import Group from './Group';
 import ImportJob from './ImportJob';
-import Guest from './Guest';
+import Guest from './Guest'; 
 
 export {
   User,
