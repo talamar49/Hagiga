@@ -30,6 +30,8 @@ body{
 input,button,select,textarea{font-family:inherit}
 input[type='file']{display:block}
 
+.lang-select{padding:6px 8px;border-radius:6px;border:1px solid #ddd;background:white}
+
 .btn{background:var(--accent);color:white;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
 .muted{color:var(--muted)}
 
@@ -37,3 +39,15 @@ input[type='file']{display:block}
   .container{margin:12px;padding:12px}
   .row{flex-direction:column;align-items:stretch}
 }
+
+/* Right-to-left support for Hebrew pages */
+[dir="rtl"]{
+  direction: rtl;
+}
+
+[dir="rtl"] .row{flex-direction:row-reverse}
+[dir="rtl"] .container, [dir="rtl"] .card {text-align: right}
+[dir="rtl"] label{display:block;text-align:right;margin-bottom:6px}
+[dir="rtl"] input, [dir="rtl"] textarea, [dir="rtl"] select{direction:ltr}
+[dir="rtl"] .btn{direction:rtl;text-align:right}
+[dir="rtl"] .lang-select{direction:ltr}

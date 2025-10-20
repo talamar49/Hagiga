@@ -5,6 +5,9 @@ export default function Home() {
     <main style={{padding: 24}}>
   <h1>Hagiga</h1>
       <p>Frontend scaffold. Connects to backend at /api/v1</p>
+      <p>
+        <a href="/home_screen">Open app</a>
+      </p>
     </main>
   );
 }
