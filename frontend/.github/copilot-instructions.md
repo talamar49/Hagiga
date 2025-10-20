@@ -61,3 +61,10 @@ Safety and code review notes for agents
 If anything here is unclear or you'd like stricter rules (e.g., preferred React components, design tokens, or a UI library), tell me which area to expand and I will update this file.
 
 for every new general instruction you receive update this file with it
+
+Additional rule (added per user request):
+- For every new general instruction or guideline provided by the project maintainers during development, append that instruction to this file so the repository's agent guidance record stays up to date.
+
+- Use constants when needed (new rule requested):
+  - Prefer values from the `constants/` folder for shared application data such as language keys (Lang), route paths (Routes), storage/local keys (StorageKeys), i18n keys, API base paths, and UI tokens (sizes, paddings).
+  - Prefer enums or named constants over string literals. When updating or adding pages/components, check `constants/` first and add to it when a value will be reused across the app.

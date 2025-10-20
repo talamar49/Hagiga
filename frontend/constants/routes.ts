@@ -3,5 +3,6 @@ export enum Routes {
   HOME_SCREEN = '/home_screen',
   LOGIN = '/login',
   REGISTER = '/register',
-  EVENTS = '/events'
+  EVENTS = '/events',
+  CREATE_EVENT = '/events/create'
 }
