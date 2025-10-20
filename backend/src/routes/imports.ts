@@ -2,7 +2,6 @@ import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
 import os from 'os';
-import fs from 'fs';
 import { ImportJob, Event, Guest } from '../models';
 import csvImport from '../services/csvImport';
 // requireAuth middleware temporarily disabled for development. To re-enable, uncomment the import above.
@@ -47,35 +46,5 @@ router.get('/:id/imports/:jobId', /* requireAuth, */ async (req, res) => {
   res.json({ job });
 });
 
-// POST /api/v1/events/:id/guests
-// Accepts an array of guest objects in the body and inserts them into the guests collection.
-// Save guests into the guests collection (on-demand)
-// NOTE: auth removed for now - to re-enable add requireAuth as the second argument here.
-router.post('/:id/guests', /* requireAuth, */ async (req, res) => {
-  const eventId = req.params.id;
-  const user = (req as any).user || { _id: null };
-  const data = req.body;
-  if (!Array.isArray(data)) return res.status(400).json({ error: 'expected array of guests' });
-
-  // Validation rules:
-  // - name is required
-  // - if more than one guest in the array, phone number is required per guest
-  const requirePhone = data.length > 1;
-  const toInsert: any[] = [];
-  for (const g of data) {
-    if (!g || !g.name || String(g.name).trim() === '') return res.status(400).json({ error: 'name required for each guest' });
-    if (requirePhone && (!g['phone number'] || String(g['phone number']).trim() === '')) return res.status(400).json({ error: 'phone number required when multiple guests' });
-    const doc = { ...g, eventId, uploadedBy: user._id };
-    toInsert.push(doc);
-  }
-
-  try {
-    const inserted = await Guest.insertMany(toInsert);
-    res.json({ insertedCount: inserted.length });
-  } catch (err: any) {
-    console.error('guest insert error', err);
-    res.status(500).json({ error: String(err.message) });
-  }
-});
 
 export default router;
