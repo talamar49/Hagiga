@@ -12,8 +12,14 @@ services:
     build: ./backend
     ports:
       - 4000:4000
+    env_file:
+      - .env
     environment:
       - MONGO_URL=mongodb://mongo:27017/wedproject
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_FROM=${TWILIO_FROM}
+      - NODE_ENV=${NODE_ENV:-development}
     depends_on:
       - mongo
 volumes:

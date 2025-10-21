@@ -6,6 +6,7 @@ export interface IUser extends Document {
   phone?: string;
   countryCode?: string;
   normalizedPhone?: string;
+  passwordHash?: string;
   firstName?: string;
   lastName?: string;
   displayName?: string;
@@ -17,6 +18,7 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema<IUser>({
   phone: { type: String, index: true },
+  passwordHash: { type: String },
   countryCode: { type: String },
   normalizedPhone: { type: String, index: true },
   firstName: { type: String },
