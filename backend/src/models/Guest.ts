@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
-const phoneRegex = /^0\d{9}$/;
+const PHONE_REGEX = /^0\d{9}$/;
 
 const GuestSchema = new Schema(
   {
@@ -13,7 +13,7 @@ const GuestSchema = new Schema(
     required: true,
     unique: true, 
     validate: {
-      validator: (v: string) => phoneRegex.test(v),
+      validator: (v: string) => PHONE_REGEX.test(v),
       message: (props: { value: string }) => 
         `${props.value} is not a valid 10-digit phone number starting with 0!`,
       },

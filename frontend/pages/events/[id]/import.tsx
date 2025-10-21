@@ -58,6 +58,7 @@ export default function ImportPage({ params }: any) {
     return lines.join('\n');
   }
 
+
   function validateRow(row: any) {
     // Expected keys (normalized): name, lastname, num of participants, phone number
     const errors: Record<string, string> = {};
@@ -65,8 +66,9 @@ export default function ImportPage({ params }: any) {
     if (!row['lastname'] || String(row['lastname']).trim() === '') errors['lastname'] = 'required';
     const numRaw = String(row['num of participants'] ?? '').trim();
     if (numRaw === '' || isNaN(Number(numRaw)) || Number(numRaw) < 1) errors['num of participants'] = 'invalid';
+
     const phoneRaw = String(row['phone number'] ?? '').trim();
-    if (phoneRaw !== '' && !/^\+?[0-9 \-]{6,20}$/.test(phoneRaw)) errors['phone number'] = 'invalid';
+    if (phoneRaw !== '' && !/^0\d{9}$/.test(phoneRaw) || !phoneRaw) errors['phone number'] = 'invalid';
     return errors;
   }
 
