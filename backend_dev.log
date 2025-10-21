@@ -1,0 +1,42 @@
+[INFO] 20:30:27 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 5.9.3)
+listening on 4000
+connected to mongo
+[INFO] 20:36:30 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/routes/auth.ts has been modified
+listening on 4000
+connected to mongo
+[INFO] 20:36:41 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/routes/auth.ts has been modified
+listening on 4000
+connected to mongo
+[INFO] 11:34:23 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/models/User.ts has been modified
+listening on 4000
+connected to mongo
+OTP for 0533025559 is 743829
+[INFO] 12:17:31 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/routes/auth.ts has been modified
+listening on 4000
+connected to mongo
+OTP for 053302 is 425342
+OTP for 0533025559 is 249644
+[INFO] 12:22:37 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/routes/auth.ts has been modified
+listening on 4000
+connected to mongo
+OTP for 0533025559 is 285386
+OTP for 0533025559 is 509167
+[INFO] 12:27:39 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/routes/auth.ts has been modified
+listening on 4000
+connected to mongo
+[INFO] 16:35:09 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/routes/auth.ts has been modified
+listening on 4000
+connected to mongo
+[INFO] 16:38:54 Restarting: /home/talam1/Desktop/Personal/Hagiga/backend/src/routes/auth.ts has been modified
+Error: listen EADDRINUSE: address already in use 0.0.0.0:4000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at Function.listen (/home/talam1/Desktop/Personal/Hagiga/backend/node_modules/express/lib/application.js:635:24)
+    at Object.<anonymous> (/home/talam1/Desktop/Personal/Hagiga/backend/src/index.ts:25:5)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1688:14)
+    at Module._compile (/home/talam1/Desktop/Personal/Hagiga/backend/node_modules/source-map-support/source-map-support.js:568:25)
+    at Module.m._compile (/tmp/ts-node-dev-hook-45035421751512983.js:69:33)
+    at node:internal/modules/cjs/loader:1820:10
+    at require.extensions..jsx.require.extensions..js (/tmp/ts-node-dev-hook-45035421751512983.js:114:20)
+[ERROR] 16:38:54 Error: listen EADDRINUSE: address already in use 0.0.0.0:4000
