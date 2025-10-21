@@ -3,6 +3,7 @@ import { uploadCsv, getImportJob } from '../../../lib/api';
 import { t } from '../../../lib/i18n';
 import { useTheme } from '../../../lib/theme';
 import { useRouter } from 'next/router';
+import { saveGuests } from '../../../lib/api';
 
 type Lang = 'en' | 'he';
 
@@ -99,8 +100,22 @@ export default function ImportPage({ params }: any) {
     }
   };
 
+  const hasDuplicatePhoneNumbers = (guests: any[]) => {
+    const phoneNumbers = new Set<string>();
+    for (const guest of guests) {
+        const phoneNumber = guest['phone number'];
+        if (phoneNumbers.has(phoneNumber)) {
+            return true;
+        }
+        phoneNumbers.add(phoneNumber);
+    }
+    return false;
+}
+
   const onSaveGuests = async () => {
-    if (!participants || participants.length === 0) return alert('no guests to save');
+    const eventId = clientEventId;
+    if (!participants || participants.length === 0)  return alert('no guests to save');
+    if (hasDuplicatePhoneNumbers(participants)) return alert('duplicate phone numbers in guests');
     try {
       // basic client-side validation: ensure name exists and phone when required
       const requirePhone = participants.length > 1;
@@ -109,7 +124,7 @@ export default function ImportPage({ params }: any) {
         if (requirePhone && (!p['phone number'] || String(p['phone number']).trim() === '')) return alert('phone required when multiple guests');
       }
       // call backend
-  const res = await (await import('../../../lib/api')).default.saveGuests(eventId, participants, '');
+    const res = await saveGuests(eventId, participants, '');
       alert(`saved ${res.insertedCount} guests`);
     } catch (err: any) {
       alert(String(err.message));
@@ -244,9 +259,11 @@ export default function ImportPage({ params }: any) {
 // This makes the page render the full import UI for crawlers and direct requests.
 export async function getServerSideProps(context: any) {
   const id = context?.params?.id ?? null;
+  if (!id) return { notFound: true };
   return {
-    props: {
-      params: { id },
+    redirect: {
+      destination: `/events/${id}/imports`,
+      permanent: false,
     },
   };
 }
