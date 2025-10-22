@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const headers: Record<string, string> = {};
     // forward authorization if present
-    if (req.headers.authorization) headers.authorization = String(req.headers.authorization);
+  if (req.headers.authorization) headers['Authorization'] = String(req.headers.authorization);
     // forward content-type if present so backend can parse JSON
     if (req.headers['content-type']) headers['content-type'] = String(req.headers['content-type']);
 
@@ -26,8 +26,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const fetchRes = await fetch(backendUrl, { method: method as any, headers, body });
-    const text = await fetchRes.text();
-    res.status(fetchRes.status).send(text);
+  const contentType = fetchRes.headers.get('content-type') || 'text/plain';
+  const text = await fetchRes.text();
+  res.setHeader('content-type', contentType);
+  res.status(fetchRes.status).send(text);
   } catch (err: any) {
     res.status(500).json({ error: String(err.message) });
   }

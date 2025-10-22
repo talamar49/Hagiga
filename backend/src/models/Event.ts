@@ -24,6 +24,7 @@ const EventSchema = new Schema<IEvent>({
   settings: { type: Schema.Types.Mixed, default: {} },
 }, { timestamps: true });
 
-EventSchema.index({ hostId: 1 });
+// index by eventOwners for quick owner queries
+EventSchema.index({ eventOwners: 1 });
 const Event = mongoose.models.Event || mongoose.model<IEvent>('Event', EventSchema);
 export default Event;

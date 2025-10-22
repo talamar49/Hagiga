@@ -9,6 +9,8 @@ export interface IImportJob extends Document {
   successCount?: number;
   failureCount?: number;
   errorLog?: string[];
+  // structured error rows captured during processing
+  errorRows?: Array<{ rowIndex: number; reason: string; row: Record<string, any> }>;
 }
 
 const ImportJobSchema = new Schema<IImportJob>({
@@ -20,6 +22,7 @@ const ImportJobSchema = new Schema<IImportJob>({
   successCount: { type: Number, default: 0 },
   failureCount: { type: Number, default: 0 },
   errorLog: [{ type: String }],
+  errorRows: [{ type: Schema.Types.Mixed }],
 }, { timestamps: true });
 
 ImportJobSchema.index({ eventId: 1, status: 1 });
