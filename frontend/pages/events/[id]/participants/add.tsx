@@ -9,6 +9,7 @@ import AuthRoute from '../../../../lib/AuthRoute';
 import Toast from '../../../../components/Toast';
 import Card from '../../../../components/ui/Card';
 import Button from '../../../../components/ui/Button';
+import Input from '../../../../components/ui/Input';
 
 function AddParticipantPage() {
   const { lang } = useLang();
@@ -84,19 +85,19 @@ function AddParticipantPage() {
             <div style={{ display: 'grid', gap: 12 }}>
               <label>
                 {t('name', lang)}
-                <input value={name} onChange={e => setName(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
+                <Input value={name} onChange={e => setName(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
               </label>
               <label>
                 {t('lastname', lang)}
-                <input value={lastName} onChange={e => setLastName(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
+                <Input value={lastName} onChange={e => setLastName(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
               </label>
               <label>
                 {t('phone', lang)}
-                <input value={phone} onChange={e => setPhone(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
+                <Input value={phone} onChange={e => setPhone(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
               </label>
               <label>
                 {t('numParticipants', lang)}
-                <input type="number" value={count} min={1} onChange={e => setCount(Number(e.target.value))} style={{ width: 120, padding: 8, marginTop: 6 }} />
+                <Input type="number" value={count} min={1} onChange={e => setCount(Number(e.target.value))} style={{ width: 120, padding: 8, marginTop: 6 }} />
               </label>
 
               <div style={{ display: 'flex', gap: 8, marginTop: 6 }}>

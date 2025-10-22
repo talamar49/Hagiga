@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import AuthRoute from '../../../lib/AuthRoute';
 import { updateEvent } from '../../../lib/api';
 import Toast from '../../../components/Toast';
+import Button from '../../../components/ui/Button';
+import Input from '../../../components/ui/Input';
 
 function SettingsPage() {
   const { lang } = useLang();
@@ -57,20 +59,20 @@ function SettingsPage() {
         <h1>{t('eventSettings', lang)}</h1>
         <div style={{ padding: 16, background: '#f7fafc', borderRadius: 8 }}>
           <label style={{ display: 'block', marginBottom: 8 }}>Title
-            <input value={title} onChange={e => setTitle(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
+            <Input value={title} onChange={e => setTitle(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
           </label>
           <label style={{ display: 'block', marginBottom: 8 }}>Type
-            <input value={type} onChange={e => setType(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
+            <Input value={type} onChange={e => setType(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
           </label>
           <label style={{ display: 'block', marginBottom: 8 }}>Date
-            <input type="date" value={date} onChange={e => setDate(e.target.value)} style={{ display: 'block', padding: 8, marginTop: 6 }} />
+            <Input type="date" value={date} onChange={e => setDate(e.target.value)} style={{ display: 'block', padding: 8, marginTop: 6 }} />
           </label>
           <label style={{ display: 'block', marginBottom: 8 }}>Description
             <textarea value={description} onChange={e => setDescription(e.target.value)} style={{ display: 'block', width: '100%', padding: 8, marginTop: 6 }} />
           </label>
           <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
-            <button className="btn" onClick={onSave}>Save</button>
-            <button className="btn" onClick={() => router.push(`/events/${id}`)} style={{ background: 'transparent', border: 'none', color: '#4299e1' }}>Cancel</button>
+            <Button className="btn" onClick={onSave}>{t('save', lang) || 'Save'}</Button>
+            <Button variant="ghost" onClick={() => router.push(`/events/${id}`)} style={{ background: 'transparent', border: 'none', color: 'var(--primary, #4299e1)' }}>{t('cancel', lang) || 'Cancel'}</Button>
           </div>
         </div>
       </div>

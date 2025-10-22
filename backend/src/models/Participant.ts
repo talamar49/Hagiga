@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-export type ParticipantStatus = 'invited' | 'confirmed' | 'declined' | 'checked_in';
+export type ParticipantStatus = 'no_arrived' | 'confirmed' | 'declined' | 'checked_in';
 
 export interface IParticipant extends Document {
   eventId: Schema.Types.ObjectId;
@@ -9,6 +9,7 @@ export interface IParticipant extends Document {
   lastName?: string;
   phone?: string;
   numAttendees: number;
+  checkedCount?: number;
   tags?: string[];
   status: ParticipantStatus;
   seatId?: Schema.Types.ObjectId | null;
@@ -23,8 +24,9 @@ const ParticipantSchema = new Schema<IParticipant>({
   lastName: { type: String },
   phone: { type: String, index: true },
   numAttendees: { type: Number, default: 1 },
+  checkedCount: { type: Number, default: 0 },
   tags: { type: [String], default: [] },
-  status: { type: String, default: 'invited' },
+  status: { type: String, default: 'no_arrived' },
   seatId: { type: Schema.Types.ObjectId, ref: 'Table', default: null },
   groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
   importMeta: { type: Schema.Types.Mixed },

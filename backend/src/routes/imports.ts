@@ -169,6 +169,30 @@ router.get('/:id/participants', requireAuth, async (req, res) => {
   }
 });
 
+// POST create a participant for an event
+router.post('/:id/participants', requireAuth, async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const user = (req as any).user;
+    const ev = await Event.findById(eventId);
+    if (!ev) return res.status(404).json({ error: 'event not found' });
+    if (!user || !ev.eventOwners || !ev.eventOwners.map((o: any) => String(o)).includes(String(user._id))) return res.status(403).json({ error: 'not event owner' });
+
+    const { name, lastName, phone, numAttendees } = req.body || {};
+  const errors: Record<string,string> = {};
+  if (!name || String(name).trim().length === 0) errors.name = 'name required';
+  const num = Number(numAttendees || 1) || 1;
+  if (num <= 0) errors.numAttendees = 'numAttendees must be >= 1';
+  if (Object.keys(errors).length) return res.status(400).json({ errors });
+
+  const doc = await Participant.create({ eventId, name: String(name).trim(), lastName: lastName ? String(lastName).trim() : undefined, phone: phone ? String(phone).trim() : undefined, numAttendees: num, checkedCount: 0, status: 'no_arrived' });
+    return res.status(201).json({ participant: doc });
+  } catch (err: any) {
+    console.error('create participant error', err);
+    res.status(500).json({ error: String(err.message || err) });
+  }
+});
+
 // PATCH update a participant
 router.patch('/:id/participants/:pid', requireAuth, async (req, res) => {
   try {
@@ -180,12 +204,34 @@ router.patch('/:id/participants/:pid', requireAuth, async (req, res) => {
     if (!user || !ev.eventOwners || !ev.eventOwners.map((o: any) => String(o)).includes(String(user._id))) return res.status(403).json({ error: 'not event owner' });
 
     const allowed: any = {};
-    const { name, lastName, phone, numAttendees, status } = req.body;
+    const { name, lastName, phone, numAttendees, status, checkedCount } = req.body;
     if (name !== undefined) allowed.name = name;
     if (lastName !== undefined) allowed.lastName = lastName;
     if (phone !== undefined) allowed.phone = phone;
     if (numAttendees !== undefined) allowed.numAttendees = numAttendees;
-    if (status !== undefined) allowed.status = status;
+
+    // Load existing participant to compute derived values
+    const existing = await Participant.findOne({ _id: pid, eventId });
+    if (!existing) return res.status(404).json({ error: 'participant not found' });
+
+    // compute new numAttendees and checkedCount with sensible defaults
+    const newNum = Number(numAttendees !== undefined ? numAttendees : existing.numAttendees || 1) || 1;
+    let newChecked = checkedCount !== undefined ? Number(checkedCount || 0) : Number(existing.checkedCount || 0);
+    // clamp
+    if (newChecked < 0) newChecked = 0;
+    if (newChecked > newNum) newChecked = newNum;
+    allowed.checkedCount = newChecked;
+
+    // derive status server-side for consistency: only set to 'checked_in' when fully checked
+    if (newChecked >= newNum) {
+      allowed.status = 'checked_in';
+    } else if (checkedCount !== undefined && newChecked === 0) {
+      // cleared to zero -> reset to invited
+      allowed.status = 'not_arrived';
+    } else if (status !== undefined) {
+      // accept explicit status if provided (but we prefer derived status)
+      allowed.status = status;
+    }
 
     const doc = await Participant.findOneAndUpdate({ _id: pid, eventId }, { $set: allowed }, { new: true });
     if (!doc) return res.status(404).json({ error: 'participant not found' });

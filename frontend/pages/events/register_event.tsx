@@ -60,11 +60,11 @@ export default function RegisterEventPage(){
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <div>
                 <label style={{ display: 'block', marginBottom: 6 }}>{lang === 'he' ? 'תאריך (אופציונלי)' : 'Date (optional)'}</label>
-                <input type="date" value={date} onChange={e=>setDate(e.target.value)} style={{ padding: 8, width: '100%' }} />
+                <Input type="date" value={date} onChange={e=>setDate(e.target.value)} style={{ padding: 8, width: '100%' }} />
               </div>
               <div>
                 <label style={{ display: 'block', marginBottom: 6 }}>{lang === 'he' ? 'תיאור (אופציונלי)' : 'Description (optional)'}</label>
-                <input value={description} onChange={e=>setDescription(e.target.value)} style={{ padding: 8, width: '100%' }} />
+                <Input value={description} onChange={e=>setDescription(e.target.value)} style={{ padding: 8, width: '100%' }} />
               </div>
             </div>
             <div style={{ marginTop: 12 }}>

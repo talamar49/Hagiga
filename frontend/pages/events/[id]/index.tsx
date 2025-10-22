@@ -6,6 +6,7 @@ import { getSimplePageStyles } from '../../../styles/pages/simplePageStyles';
 import { t } from '../../../lib/i18n';
 import { Routes } from '../../../constants/routes';
 import ConfirmModal from '../../../components/ConfirmModal';
+import Button from '../../../components/ui/Button';
 import Toast from '../../../components/Toast';
 import AuthRoute from '../../../lib/AuthRoute';
 
@@ -147,45 +148,11 @@ function EventMainPage() {
           </div>
         </section>
 
-        <section style={{ marginTop: 32 }}>
-          <h2>{t('addParticipants', lang)}</h2>
-          <div style={{ 
-            display: 'flex', 
-            gap: '12px', 
-            flexWrap: 'wrap',
-            marginTop: 16 
-          }}>
-            <button 
-              className="btn"
-              onClick={() => router.push(`${Routes.EVENTS}/${id}/import`)}
-              style={{ padding: '12px 24px' }}
-            >
-              {t('importFromCSV', lang)}
-            </button>
-            <button 
-              className="btn"
-              onClick={() => router.push(`${Routes.EVENTS}/${id}/participants/add`)}
-              style={{ padding: '12px 24px', background: '#48bb78', borderColor: '#48bb78' }}
-            >
-              {t('addManually', lang)}
-            </button>
-          </div>
-        </section>
-
         <div style={{ marginTop: 32 }}>
           <div style={{ display: 'flex', gap: 12 }}>
-            <button 
-              onClick={() => router.push(Routes.USER_MAIN_FEED)}
-              style={{ 
-                background: 'transparent', 
-                border: 'none', 
-                color: '#4299e1', 
-                cursor: 'pointer',
-                textDecoration: 'underline'
-              }}
-            >
+            <Button variant="ghost" onClick={() => router.push(Routes.USER_MAIN_FEED)} style={{ background: 'transparent', border: 'none', color: 'var(--primary, #4299e1)', textDecoration: 'underline' }} aria-label={t('backToEvents', lang)}>
               ← {t('backToEvents', lang)}
-            </button>
+            </Button>
             <button
               className="btn"
               style={{ background: '#e53e3e', borderColor: '#e53e3e', color: 'white' }}
