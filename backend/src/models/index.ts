@@ -10,6 +10,7 @@ import Review from './Review';
 import Group from './Group';
 import ImportJob from './ImportJob';
 import Guest from './Guest'; 
+import Invitation from './Invitation';
 
 export {
   User,
@@ -24,4 +25,5 @@ export {
   Group,
   ImportJob,
   Guest,
+  Invitation,
 };

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { User } from '../models';
 import jwtLib from '../lib/jwt';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const router = Router();
 
