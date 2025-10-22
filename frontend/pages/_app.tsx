@@ -7,7 +7,11 @@ export default function App({ Component, pageProps }: any) {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <Component {...pageProps} />
+        <div className="app-shell">
+          <div className="card container">
+            <Component {...pageProps} />
+          </div>
+        </div>
       </LanguageProvider>
     </ThemeProvider>
   );
