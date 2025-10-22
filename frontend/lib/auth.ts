@@ -38,7 +38,7 @@ export async function login(email: string, password: string) {
 export async function me(): Promise<User> {
   const token = getToken();
   const headers: Record<string,string> = {};
-  if (token) headers.authorization = `Bearer ${token}`;
+  if (token) headers['Authorization'] = `Bearer ${token}`;
   const res = await fetch('/api/proxy/auth/me', { headers });
   if (!res.ok) throw new Error(await res.text());
   return res.json();

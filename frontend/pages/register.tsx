@@ -6,6 +6,9 @@ import { getRegisterStyles } from '../styles/pages/registerStyles';
 import { register as apiRegister, saveToken } from '../lib/auth';
 import { useRouter } from 'next/router';
 import { Routes } from '../constants/routes';
+import Button from '../components/ui/Button';
+import Card from '../components/ui/Card';
+import Input from '../components/ui/Input';
 
 export default function RegisterPage() {
   const { lang } = useLang();
@@ -68,49 +71,30 @@ export default function RegisterPage() {
         </div>
         <p className="muted" style={styles.mutedStyle}>{lang === 'he' ? 'הרשמה/י באמצעות חשבון גוגל או מלא/י את הטופס' : 'Register using Google or complete the form'}</p>
 
-        <div className="card" style={styles.cardStyle}>
-
-          <hr style={{ margin: '16px 0' }} />
-
-          <form name="registerForm" style={styles.formStyle} onSubmit={onSubmit}>
-            <div style={styles.fieldStyle}>
-                <label>{lang === 'he' ? 'שם' : 'First name'}</label>
-                <input name="firstName" dir={lang === 'he' ? 'rtl' : 'ltr'} type="text" placeholder={lang === 'he' ? 'שם' : 'First name'} style={{ width: '100%', padding: 10 }} />
-              </div>
-              <div style={styles.fieldStyle}>
-                <label>{lang === 'he' ? 'שם משפחה' : 'Last name'}</label>
-                <input name="lastName" dir={lang === 'he' ? 'rtl' : 'ltr'} type="text" placeholder={lang === 'he' ? 'שם משפחה' : 'Last name'} style={{ width: '100%', padding: 10 }} />
+        <Card>
+          <form name="registerForm" style={{ padding: 8 }} onSubmit={onSubmit}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <Input name="firstName" dir={lang === 'he' ? 'rtl' : 'ltr'} type="text" placeholder={lang === 'he' ? 'שם' : 'First name'} label={lang === 'he' ? 'שם' : 'First name'} />
+              <Input name="lastName" dir={lang === 'he' ? 'rtl' : 'ltr'} type="text" placeholder={lang === 'he' ? 'שם משפחה' : 'Last name'} label={lang === 'he' ? 'שם משפחה' : 'Last name'} />
             </div>
-            <div style={styles.fieldStyle}>
-              <label>{lang === 'he' ? 'פלאפון' : 'Phone'}</label>
-              <input name="phone" dir="ltr" type="tel" placeholder={lang === 'he' ? '+972 50-123-4567' : '+1 555-555-0123'} style={{ width: '100%', padding: 10 }} />
-            </div>
-            <div style={styles.fieldStyle}>
-              <label>{lang === 'he' ? 'אימייל' : 'Email'}</label>
-              <input name="email" dir="ltr" type="email" placeholder="you@example.com" style={{ width: '100%', padding: 10 }} />
-            </div>
-            <div style={styles.fieldStyle}>
-              <label>{lang === 'he' ? 'סיסמה' : 'Password'}</label>
-              <input name="password" dir="ltr" type="password" placeholder="••••••••" style={{ width: '100%', padding: 10 }} />
-            </div>
-            <div style={styles.fieldStyle}>
-              <label>{lang === 'he' ? 'אימות סיסמה' : 'Confirm password'}</label>
-              <input name="confirmPassword" dir="ltr" type="password" placeholder={lang === 'he' ? 'חזור על הסיסמה' : 'Confirm password'} style={{ width: '100%', padding: 10 }} />
+            <Input name="phone" dir="ltr" type="tel" placeholder={lang === 'he' ? '+972 50-123-4567' : '+1 555-555-0123'} label={lang === 'he' ? 'פלאפון' : 'Phone'} />
+            <Input name="email" dir="ltr" type="email" placeholder="you@example.com" label={lang === 'he' ? 'אימייל' : 'Email'} />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <Input name="password" dir="ltr" type="password" placeholder="••••••••" label={lang === 'he' ? 'סיסמה' : 'Password'} />
+              <Input name="confirmPassword" dir="ltr" type="password" placeholder={lang === 'he' ? 'חזור על הסיסמה' : 'Confirm password'} label={lang === 'he' ? 'אימות סיסמה' : 'Confirm password'} />
             </div>
 
-            <div style={{ textAlign: lang === 'he' ? 'right' : 'left', paddingTop: 8 }}>
-                <div style={{ display: 'inline-flex', gap: 8 }}>
-                <button disabled={loading} type="submit" className="btn">{loading ? (lang === 'he' ? 'טוען...' : 'Loading...') : (lang === 'he' ? 'הרשמה' : 'Register')}</button>
-                <button type="button" className="btn" style={{ background: '#DB4437' }}>{lang === 'he' ? 'הרשמה עם גוגל' : 'Register with Google'}</button>
-              </div>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', gap: 8, marginTop: 8 }}>
+              <Button disabled={loading} type="submit">{loading ? (lang === 'he' ? 'טוען...' : 'Loading...') : (lang === 'he' ? 'הרשמה' : 'Register')}</Button>
+              <Button type="button" variant="ghost" style={{ borderColor: '#DB4437', color: 'var(--text)' }}>{lang === 'he' ? 'הרשמה עם גוגל' : 'Register with Google'}</Button>
             </div>
-            {error ? <div style={{ color: 'crimson', marginTop: 8 }}>{error}</div> : null}
+            {error ? <div style={{ color: 'var(--danger)', marginTop: 8 }}>{error}</div> : null}
           </form>
 
           <p style={styles.centerText}>
             {lang === 'he' ? 'כבר יש לך חשבון?' : "Already have an account?"} <Link href="/login">{lang === 'he' ? 'התחבר/י' : 'Sign in'}</Link>
           </p>
-        </div>
+        </Card>
       </div>
     </main>
   );

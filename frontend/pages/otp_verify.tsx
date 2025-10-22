@@ -5,6 +5,9 @@ import { Routes } from '../constants/routes';
 import { useLang } from '../lib/lang';
 import { getSimplePageStyles } from '../styles/pages/simplePageStyles';
 import { verifyOtp, saveToken } from '../lib/auth';
+import Card from '../components/ui/Card';
+import Input from '../components/ui/Input';
+import Button from '../components/ui/Button';
 
 export default function OtpVerifyPage(){
   const { lang } = useLang();
@@ -48,15 +51,15 @@ export default function OtpVerifyPage(){
       <div style={{ maxWidth: 640, margin: '40px auto', padding: 16 }}>
         <h1 style={{ fontSize: 22 }}>{lang === 'he' ? 'אימות קוד' : 'Verify code'}</h1>
         <p className="muted">{lang === 'he' ? 'הזן את הקוד שנשלח למספר הטלפון' : 'Enter the code sent to your phone'}</p>
-        <form onSubmit={onSubmit}>
-          <div style={{ marginTop: 12 }}>
-            <input value={code} onChange={e => setCode(e.target.value)} inputMode="numeric" placeholder={lang === 'he' ? 'קוד' : 'Code'} style={{ padding: 10, width: '100%' }} />
-          </div>
-          <div style={{ marginTop: 12 }}>
-            <button type="submit" disabled={loading} className="btn">{loading ? (lang === 'he' ? 'טוען...' : 'Loading...') : (lang === 'he' ? 'אמת' : 'Verify')}</button>
-          </div>
-          {error ? <div style={{ color: 'crimson', marginTop: 8 }}>{error}</div> : null}
-        </form>
+        <Card>
+          <form onSubmit={onSubmit}>
+            <Input value={code} onChange={e => setCode(e.target.value)} inputMode="numeric" placeholder={lang === 'he' ? 'קוד' : 'Code'} />
+            <div style={{ marginTop: 12 }}>
+              <Button type="submit" disabled={loading}>{loading ? (lang === 'he' ? 'טוען...' : 'Loading...') : (lang === 'he' ? 'אמת' : 'Verify')}</Button>
+            </div>
+            {error ? <div style={{ color: 'var(--danger)', marginTop: 8 }}>{error}</div> : null}
+          </form>
+        </Card>
       </div>
     </main>
   );

@@ -4,70 +4,83 @@ import { useLang } from '../lib/lang';
 import { getUserHomeStyles } from '../styles/pages/userHomeStyles';
 import { t } from '../lib/i18n';
 import { Routes } from '../constants/routes';
-
-// Real user will be loaded from backend
 import { useEffect, useState } from 'react';
 import auth from '../lib/auth';
 import AuthRoute from '../lib/AuthRoute';
+import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
 
-const fakeConnectedEvents = [
-  { id: 'e1', title: 'Bar Mitzvah - Yonatan' },
-  { id: 'e2', title: 'Wedding - Sarah & David' }
-];
-const fakeManagedEvents: Array<{id:string,title:string}> = [];
+interface EventItem {
+  _id: string;
+  title: string;
+  type: string;
+  date?: string;
+}
 
 function UserMainFeed() {
   const { lang } = useLang();
   const styles = getUserHomeStyles(lang);
   const [userName, setUserName] = useState<string | null>(null);
+  const [managedEvents, setManagedEvents] = useState<EventItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const router = require('next/router').useRouter();
+
   useEffect(() => {
-    auth.me().then(u => {
-      setUserName(u.firstName ? `${u.firstName}${u.lastName ? ' ' + u.lastName : ''}` : (u.email || ''))
-    }).catch(() => {
-      setUserName(null);
-      router.push('/login');
-    });
+    const fetchData = async () => {
+      try {
+        const u = await auth.me();
+        setUserName(u.firstName ? `${u.firstName}${u.lastName ? ' ' + u.lastName : ''}` : (u.email || ''));
+        
+        // Fetch user's events
+        const token = auth.getToken();
+        const headers: Record<string, string> = {};
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+        
+        const res = await fetch('/api/proxy/events', { headers });
+        if (res.ok) {
+          const data = await res.json();
+          setManagedEvents(data.events || []);
+        }
+      } catch (err) {
+        console.error('Failed to fetch data', err);
+        setUserName(null);
+        router.push('/login');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
   }, []);
 
-  const hasConnected = fakeConnectedEvents.length > 0;
-  const manages = fakeManagedEvents.length > 0;
+  const manages = managedEvents.length > 0;
 
   return (
     <main style={styles.containerStyle} dir={lang === 'he' ? 'rtl' : 'ltr'}>
       <Nav />
 
-      <header style={{ ...styles.headerStyle, padding: 16, background: '#f7fafc', borderRadius: 8 }}>
+      <header style={{ ...styles.headerStyle, padding: 16 }}>
         <div style={styles.welcomeStyle}>{`${t('welcome', lang)}${userName ? ', ' + userName : ''}`}</div>
         <div>
-          <a href={Routes.CREATE_EVENT}><button style={styles.btnStyle}> {t('createEvent', lang)}</button></a>
+          <a href={Routes.CREATE_EVENT}><Button>{t('createEvent', lang)}</Button></a>
         </div>
       </header>
 
       <section style={styles.sectionStyle}>
-  <h3>{t('connectedEventsTitle', lang)}</h3>
-        {hasConnected ? (
+        <h3>{t('eventsYouRun', lang)}</h3>
+        {loading ? (
+          <div className="muted">{t('loading', lang)}</div>
+        ) : manages ? (
           <ul style={styles.listStyle}>
-            {fakeConnectedEvents.map(ev => (
-              <li key={ev.id} style={styles.listItem}>
-                <div>{ev.title}</div>
-                <div><a href={`${Routes.EVENTS}/${ev.id}`}>{t('open', lang)}</a></div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div className="muted">{t('noConnected', lang)}</div>
-        )}
-      </section>
-
-      <section style={styles.sectionStyle}>
-        <h3>{t('managedEventsTitle', lang)}</h3>
-        {manages ? (
-          <ul style={styles.listStyle}>
-            {fakeManagedEvents.map(ev => (
-              <li key={ev.id} style={styles.listItem}>
-                <div>{ev.title}</div>
-                <div><a href={`${Routes.EVENTS}/${ev.id}`}>{t('manage', lang)}</a></div>
+            {managedEvents.map(ev => (
+              <li key={ev._id} style={styles.listItem}>
+                <div>
+                  <div style={{ fontWeight: 'bold' }}>{ev.title}</div>
+                  <div style={{ fontSize: 12, color: '#666' }}>
+                    {ev.type} {ev.date ? `• ${new Date(ev.date).toLocaleDateString()}` : ''}
+                  </div>
+                </div>
+                <div><a href={`${Routes.EVENTS}/${ev._id}`}>{t('manage', lang)}</a></div>
               </li>
             ))}
           </ul>
