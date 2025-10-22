@@ -144,6 +144,26 @@ function EventMainPage() {
                 {t('eventSettingsDesc', lang)}
               </p>
             </div>
+            <div style={{ 
+              padding: 16, 
+              border: '1px solid #ddd', 
+              borderRadius: 8,
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+              onClick={() => router.push(`${Routes.EVENTS}/${id}/invitations`)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <h3 style={{ marginTop: 0 }}>{'ניהול הזמנות'}</h3>
+              <p style={{ color: '#666', fontSize: 14 }}>
+                {'צפה ונהל הזמנות שנוצרו עבור אירוע זה'}
+              </p>
+            </div>
           </div>
         </section>
 
@@ -161,6 +181,13 @@ function EventMainPage() {
               style={{ padding: '12px 24px' }}
             >
               {t('importFromCSV', lang)}
+            </button>
+            <button 
+              className="btn"
+              onClick={() => router.push(`${Routes.EVENTS}/${id}/invitations`)}
+              style={{ padding: '12px 24px', marginLeft: 8 }}
+            >
+              {'עמוד לניהול מוזמנים'}
             </button>
             <button 
               className="btn"

@@ -1,0 +1,11 @@
+node_modules
+frontend/next
+frontend/node_modules
+backend/dist
+dist
+.env
+.git
+uploads
+.node_modules
+npm-debug.log
+.DS_Store

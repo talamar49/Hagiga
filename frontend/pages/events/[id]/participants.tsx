@@ -58,6 +58,7 @@ function ParticipantsPage() {
         <div style={{ marginBottom: 24 }}>
           <Button onClick={() => router.push(`${Routes.EVENTS}/${id}/import_csv`)}>{t('importFromCSV', lang)}</Button>
           <Button onClick={() => router.push(`${Routes.EVENTS}/${id}/participants/add`)} style={{ marginLeft: 12, background: 'var(--success)', borderColor: 'var(--success)' }}>{t('addManually', lang)}</Button>
+          <Button onClick={() => router.push(`${Routes.EVENTS}/${id}/invitations`)} style={{ marginLeft: 12 }}>{'ניהול הזמנה לאירוע'}</Button>
         </div>
 
         {loading ? (
